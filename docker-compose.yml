@@ -1,0 +1,32 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app/todos
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=prova
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=prova_postgres
+      - PORT=8080
+    depends_on:
+      - pgProvas
+    links:
+      - pgProvas
+  pgProvas:
+    image: postgres
+    container_name: prova_postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: prova
+
+networks:
+  default:
+    driver: bridge
