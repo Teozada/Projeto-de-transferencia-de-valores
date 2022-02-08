@@ -24,5 +24,5 @@ public class Person {
     private String name;
 
     @Column(nullable = false)
-    private Long accountId;
+    private Double balance;
 }
