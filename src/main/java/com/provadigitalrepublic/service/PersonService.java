@@ -25,6 +25,16 @@ public class PersonService {
         return personRepository.save(person);
     }
 
+    public Person getByCpf(String cpf) throws Exception {
+
+        final Optional<Person> existPerson = this.personRepository.findByCpf(cpf);
+
+        if (existPerson.isEmpty()) {
+            throw new Exception("Teste1");
+        }
+        return existPerson.get();
+    }
+
     public List<Person> listAllPerson() {
         return personRepository.findAll();
     }
