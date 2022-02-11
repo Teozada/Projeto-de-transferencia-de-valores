@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 public class PersonDto {
 
-    public class Create {
+    public static class Create {
 
         @NotNull
         public String cpf;
@@ -19,7 +19,7 @@ public class PersonDto {
         public String name;
     }
 
-    public class Transfer {
+    public static class Transfer {
 
         @NotNull
         public String senderCpf;
@@ -31,7 +31,7 @@ public class PersonDto {
         public Double value;
     }
 
-    public class Deposit {
+    public static class Deposit {
 
         @NotNull
         public String receiverCpf;

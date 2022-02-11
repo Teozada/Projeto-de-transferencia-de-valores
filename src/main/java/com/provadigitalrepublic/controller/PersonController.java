@@ -1,31 +1,32 @@
 package com.provadigitalrepublic.controller;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
+
 import com.provadigitalrepublic.dto.PersonDto;
+import com.provadigitalrepublic.exceptions.UserException;
+import com.provadigitalrepublic.exceptions.ValueException;
 import com.provadigitalrepublic.model.Person;
 import com.provadigitalrepublic.service.PersonService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api")
 @Slf4j
 public class PersonController {
-
+    @Autowired
     PersonService personService;
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Person> createdPerson (@RequestBody PersonDto.Create personDto) throws Exception {
         Person person = new Person();
-        BeanUtils.copyProperties(personDto, person);
+        person.setCpf(personDto.cpf);
+        person.setName(personDto.name);
         personService.createPerson(person);
         return new ResponseEntity<>(person, HttpStatus.CREATED);
     }

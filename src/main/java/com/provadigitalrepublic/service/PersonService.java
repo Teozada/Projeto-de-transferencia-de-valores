@@ -1,57 +1,49 @@
 package com.provadigitalrepublic.service;
 
+import com.provadigitalrepublic.exceptions.InvalidValue;
+import com.provadigitalrepublic.exceptions.UserErrosException;
+import com.provadigitalrepublic.exceptions.UserException;
+import com.provadigitalrepublic.exceptions.ValueException;
 import com.provadigitalrepublic.model.Person;
 import com.provadigitalrepublic.repository.PersonRespository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class PersonService {
-
+    @Autowired
     private PersonRespository personRepository;
 
+    // criando usuario
     public Person createPerson (Person person) throws Exception {
 
         final Optional<Person> existPerson = this.personRepository.findByCpf(person.getCpf());
 
         if (existPerson.isPresent()) {
-            throw new Exception("Teste1");
+            throw new UserException();
         }
         person.setBalance(0.0);
         return personRepository.save(person);
     }
 
-    public Person getByCpf(String cpf) throws Exception {
-
-        final Optional<Person> existPerson = this.personRepository.findByCpf(cpf);
-
-        if (existPerson.isEmpty()) {
-            throw new Exception("Teste1");
-        }
-        return existPerson.get();
-    }
-
-    public List<Person> listAllPerson() {
-        return personRepository.findAll();
-    }
-
+    // Transferindo valor
     public void transfer(String senderCpf, String receiverCpf, Double value) throws Exception {
 
         final Optional<Person> senderPerson = this.personRepository.findByCpf(senderCpf);
         final Optional<Person> receiverPerson = this.personRepository.findByCpf(receiverCpf);
 
         if (senderPerson.isEmpty() || receiverPerson.isEmpty()) {
-            throw new Exception("Teste1");
+            throw new UserErrosException();
         }
         if (value <= 0.0) {
-            throw new Exception("Teste2");
+            throw new InvalidValue();
         }
         if (senderPerson.get().getBalance() < value) {
-            throw new Exception("Teste3");
+            throw new ValueException();
         }
         final Person sender = senderPerson.get();
         final Person receiver = receiverPerson.get();
@@ -62,14 +54,16 @@ public class PersonService {
         this.personRepository.save(receiver);
     }
 
+
+    // Depositando valor
     public void deposit(String cpf, Double value) throws Exception {
         final Optional<Person> person = this.personRepository.findByCpf(cpf);
 
         if (person.isEmpty()) {
-            throw new Exception("Teste4");
+            throw new UserErrosException();
         }
         if (value > 2000) {
-            throw new Exception("Teste5");
+            throw new InvalidValue();
         }
         final Person depositPerson = person.get();
         depositPerson.setBalance(depositPerson.getBalance() + value);
