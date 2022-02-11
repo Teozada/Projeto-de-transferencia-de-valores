@@ -20,8 +20,6 @@ $ cd ./ProvaDigitalRepublic
 
 ```
 
-# Instalation
-
 ## Rodar a aplicação com DockerCompose
 
 ```bash
