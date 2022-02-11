@@ -10,6 +10,7 @@ Este projeto é um teste Back-End para a Digital Republic
 # Clone
 
 ``` bash
+# Clonar repositório
 
 $ git clone https://github.com/Teozada/ProvaDigitalRepublic.git
 
