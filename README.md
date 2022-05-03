@@ -1,6 +1,6 @@
 # DESCRIÇÃO
 
-Este projeto é um teste Back-End para a Digital Republic
+Este projeto é um estudo BackEnd de transferencia de valores ultilizando Java com SpringBoot
 
 ### Linguagem
 
@@ -12,11 +12,11 @@ Este projeto é um teste Back-End para a Digital Republic
 ``` bash
 # Clonar repositório
 
-$ git clone https://github.com/Teozada/ProvaDigitalRepublic.git
+$ git clone https://github.com/Teozada/Projeto-de-transferencia-de-valores.git
 
 # Entrar na pasta
 
-$ cd ./ProvaDigitalRepublic
+$ cd ./Projeto-de-transferencia-de-valores
 
 ```
 
